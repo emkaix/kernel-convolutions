@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Windows;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
 using KernelConvolutions.Imaging;
 using KernelConvolutions.Imaging.Filter;
+using Brushes = System.Windows.Media.Brushes;
 
 
 namespace KernelConvolutions
@@ -20,6 +21,16 @@ namespace KernelConvolutions
         public MainWindow()
         {
             InitializeComponent();
+            LoadSampleImage();
+        }
+
+        private void LoadSampleImage()
+        {
+            var bm = new Bitmap(Properties.Resources.sample);
+            _image = new CImage(bm, "sample");
+            DisplayImageInfo(_image.Info);
+            imImageContainer.Source =
+                new BitmapImage(new Uri("pack://application:,,,/KernelConvolutions;component/sample.png"));
         }
 
         private void LoadImage_Click(object sender, RoutedEventArgs e)
