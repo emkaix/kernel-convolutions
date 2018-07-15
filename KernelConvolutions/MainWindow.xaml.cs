@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
 using KernelConvolutions.Imaging;
@@ -32,10 +32,13 @@ namespace KernelConvolutions
             fileDialog.ShowDialog();
 
             var imagePath = fileDialog.FileName;
+            if (imagePath.Equals(string.Empty)) return;
+
             _image = new CImage(imagePath);
+            DisplayImageInfo(_image.Info);
 
             if (File.Exists(imagePath))
-                ImageContainer.Source = new BitmapImage(new Uri(imagePath));
+                imImageContainer.Source = new BitmapImage(new Uri(imagePath));
             else
                 MessageBox.Show("Kein gültiger Pfad gewählt", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
@@ -52,10 +55,16 @@ namespace KernelConvolutions
                     kernel = new SobelFilter3x3();
                     break;
                 case "Gauß 5x5":
-                    kernel = new GaussFilter();
+                    kernel = new GaussFilter7x7();
                     break;
                 case "Mittelwert 3x3":
                     kernel = new MittelwertFilter3x3();
+                    break;
+                case "Laplace 3x3":
+                    kernel = new LaplaceFilter3x3();
+                    break;
+                case "Sharpen 3x3":
+                    kernel = new Sharpen3x3();
                     break;
                 default:
                     kernel = null;
@@ -66,19 +75,15 @@ namespace KernelConvolutions
 
             using (var filteredImage = _image.Convolute(kernel))
             {
-                var newImg = new BitmapImage();
-                using (var ms = new MemoryStream())
-                {
-                    filteredImage.Image.Save(ms, ImageFormat.Bmp);
-                    ms.Position = 0;
-                    newImg.BeginInit();
-                    newImg.CacheOption = BitmapCacheOption.OnLoad;
-                    newImg.StreamSource = ms;
-                    newImg.EndInit();
-                }
-
-                ImageContainer.Source = newImg;
+                imImageContainer.Source = filteredImage.ConvertToBitmapImage();
             }
+        }
+
+        private void DisplayImageInfo(ImageInfo info)
+        {
+            lbName.Content = info.Name;
+            lbSize.Content = $"{info.Height}x{info.Width}";
+            lbSize.Foreground = info.Height > 2000 || info.Width > 2000 ? Brushes.IndianRed : Brushes.Black;
         }
     }
 }

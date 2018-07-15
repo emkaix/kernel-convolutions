@@ -1,6 +1,4 @@
-﻿using System;
-using System.Drawing;
-using System.Drawing.Imaging;
+﻿using System.Drawing;
 using System.Threading;
 
 namespace KernelConvolutions.Imaging.Filter
@@ -53,9 +51,9 @@ namespace KernelConvolutions.Imaging.Filter
                 {
                     byte* pPixelAtXY = pPixels + (y * bmData.Stride) + (x * 3);
 
-                    var R = new Vector2D() {X = derivativeX[x, y, 0], Y = derivativeY[x, y, 0]}.Magnitude;
-                    var G = new Vector2D() {X = derivativeX[x, y, 1], Y = derivativeY[x, y, 1]}.Magnitude;
-                    var B = new Vector2D() {X = derivativeX[x, y, 2], Y = derivativeY[x, y, 2]}.Magnitude;
+                    var R = new Vector2D {X = derivativeX[x, y, 0], Y = derivativeY[x, y, 0]}.Magnitude;
+                    var G = new Vector2D {X = derivativeX[x, y, 1], Y = derivativeY[x, y, 1]}.Magnitude;
+                    var B = new Vector2D {X = derivativeX[x, y, 2], Y = derivativeY[x, y, 2]}.Magnitude;
 
                     *pPixelAtXY = (byte) (R > byte.MaxValue ? byte.MaxValue : R);
                     *(pPixelAtXY + 1) = (byte) (G > byte.MaxValue ? byte.MaxValue : G);

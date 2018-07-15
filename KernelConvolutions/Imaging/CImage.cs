@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
-using KernelConvolutions;
+using System.Windows.Media.Imaging;
 
 namespace KernelConvolutions.Imaging
 {
@@ -24,10 +25,25 @@ namespace KernelConvolutions.Imaging
             this._info = new ImageInfo(name, img.Width, img.Height);
         }
 
+        public BitmapImage ConvertToBitmapImage()
+        {
+            var newImg = new BitmapImage();
+            using (var ms = new MemoryStream())
+            {
+                this.Image.Save(ms, ImageFormat.Bmp);
+                ms.Position = 0;
+                newImg.BeginInit();
+                newImg.CacheOption = BitmapCacheOption.OnLoad;
+                newImg.StreamSource = ms;
+                newImg.EndInit();
+            }
+
+            return newImg;
+        }
+
         public CImage(string path) : this(LoadFromPath(path), Path.GetFileName(path)) { }
         private static Bitmap LoadFromPath(string path) => File.Exists(path) ? new Bitmap(path) : null;
         public IConvolutable ToGrayScale() => new CImage(_image?.ToGrayScale(), _info.Name);
-        
         public void Dispose() => _image?.Dispose();
     }
 }

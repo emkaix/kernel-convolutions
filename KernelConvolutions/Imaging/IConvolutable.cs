@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using KernelConvolutions;
+using System.Windows.Media.Imaging;
 
 namespace KernelConvolutions.Imaging
 {
@@ -12,6 +8,7 @@ namespace KernelConvolutions.Imaging
     {
         IConvolutable Convolute(IConvolutionKernel kernel);
         IConvolutable ToGrayScale();
+        BitmapImage ConvertToBitmapImage();
         Bitmap Image { get; }
         ImageInfo Info { get; }
     }

@@ -61,10 +61,12 @@
     </ApplicationDefinition>
     <Compile Include="Extensions.cs" />
     <Compile Include="Imaging\Algorithms.cs" />
+    <Compile Include="Imaging\Filter\Sharpen3x3.cs" />
+    <Compile Include="Imaging\Filter\LaplaceFilter3x3.cs" />
     <Compile Include="Imaging\IConvolutable.cs" />
     <Compile Include="Imaging\CImage.cs" />
     <Compile Include="Imaging\Filter\MittelwertFilter3x3.cs" />
-    <Compile Include="Imaging\Filter\GaussFilter.cs" />
+    <Compile Include="Imaging\Filter\GaussFilter7x7.cs" />
     <Compile Include="Imaging\Filter\SobelFilter3x3.cs" />
     <Compile Include="Imaging\Globals.cs" />
     <Page Include="MainWindow.xaml">

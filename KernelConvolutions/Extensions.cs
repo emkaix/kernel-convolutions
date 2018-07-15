@@ -8,15 +8,15 @@ namespace KernelConvolutions
         public static unsafe Bitmap ToGrayScale(this Bitmap bmOld)
         {
             var bmNew = new Bitmap(bmOld.Width, bmOld.Height);
-            var pOld = bmOld.GetPointer(out var bmDataOld);
-            var pNew = bmNew.GetPointer(out var bmDataNew);
+            byte* pOld = bmOld.GetPointer(out var bmDataOld);
+            byte* pNew = bmNew.GetPointer(out var bmDataNew);
 
             for (int x = 0; x < bmOld.Width; x++)
             {
                 for (int y = 0; y < bmOld.Height; y++)
                 {
-                    var pPixelOld = pOld + (y * bmDataOld.Stride) + (x * 3);
-                    var pPixelNew = pNew + (y * bmDataNew.Stride) + (x * 3);
+                    byte* pPixelOld = pOld + (y * bmDataOld.Stride) + (x * 3);
+                    byte* pPixelNew = pNew + (y * bmDataNew.Stride) + (x * 3);
 
                     var grayScale = (byte)(*pPixelOld * 0.3f + *(pPixelOld + 1) * 0.59f + *(pPixelOld + 2) * 0.11f);
                     *pPixelNew = *(pPixelNew + 1) = *(pPixelNew + 2) = grayScale;

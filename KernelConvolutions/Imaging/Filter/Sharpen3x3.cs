@@ -1,25 +1,25 @@
 ﻿using System.Drawing;
-using System.Drawing.Imaging;
 
 namespace KernelConvolutions.Imaging.Filter
 {
-    public class GaussFilter : IConvolutionKernel
+    public class Sharpen3x3 : IConvolutionKernel
     {
         private readonly double[,] _kernel;
 
-        public GaussFilter()
+        public Sharpen3x3()
         {
-            _kernel = new double[,]
+            _kernel = new[,]
             {
-                {0.111108d, 0.111113d, 0.111108d},
-                {0.111113d, 0.111118d, 0.111113d},
-                {0.111108d, 0.111113d, 0.111108d}
+                {0d, -1d, 0d},
+                {-1d, 5d, -1d},
+                {0d, -1d, 0d}
             };
         }
 
         public unsafe IConvolutable Convolute(IConvolutable img)
         {
-            var filtered = Algorithms.KernelConvolution(_kernel, img);
+            var grayScaleImg = img.ToGrayScale();
+            var filtered = Algorithms.KernelConvolution(_kernel, grayScaleImg);
 
             var bm = new Bitmap(img.Info.Width, img.Info.Height);
             byte* pPixels = bm.GetPointer(out var bmData);

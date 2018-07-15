@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Drawing;
-using System.Runtime.InteropServices;
 
 namespace KernelConvolutions.Imaging
 {
@@ -37,6 +35,12 @@ namespace KernelConvolutions.Imaging
         public readonly string Name;
         public readonly int Width;
         public readonly int Height;
+    }
+
+    public enum KernelSize
+    {
+        Size_3x3,
+        Size_5x5
     }
     
 }
