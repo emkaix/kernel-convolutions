@@ -1,0 +1,20 @@
+﻿<Window x:Class="KernelConvolutions.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KernelConvolutions"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="646.322" Width="708.708" ResizeMode="NoResize">
+    <Grid Background="#FF464545">
+        <Image x:Name="ImageContainer" HorizontalAlignment="Left" Height="596" Margin="10,10,0,0" VerticalAlignment="Top" Width="538"/>
+        <Button Content="Bild laden..." HorizontalAlignment="Left" Margin="587,217,0,0" VerticalAlignment="Top" Width="104" Click="LoadImage_Click" Background="#FFF1F1F1"/>
+        <Button x:Name="Filtern" Content="Filtern" HorizontalAlignment="Left" Margin="587,244,0,0" VerticalAlignment="Top" Width="104" Click="Filter_Click" Height="32" Background="#FFF1F1F1"/>
+        <ComboBox x:Name="FilterMenu" HorizontalAlignment="Left" Margin="587,281,0,0" VerticalAlignment="Top" Width="104" SelectedIndex="0" Background="#FFF1F1F1">
+            <ComboBoxItem Content="Sobel 3x3"/>
+            <ComboBoxItem Content="Gauß 5x5"/>
+            <ComboBoxItem Content="Mittelwert 3x3"/>
+        </ComboBox>
+
+    </Grid>
+</Window>
